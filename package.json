@@ -1,0 +1,17 @@
+{
+  "name": "com.louis.datepicker",
+  "version": "1.0.0",
+  "description": "",
+  "cordova": {
+    "id": "com.louis.datepicker",
+    "platforms": [
+      "android"
+    ]
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "author": "",
+  "license": "ISC"
+}
