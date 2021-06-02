@@ -16,6 +16,9 @@ public class datepickercordovaplugin extends CordovaPlugin {
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if (action.equals("coolMethod")) {
             String message = args.getString(0);
+            Log.d("myTag", "This is my message");
+            Log.d("myTag", message);
+
             this.coolMethod(message, callbackContext);
             return true;
         }
