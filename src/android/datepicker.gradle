@@ -1,5 +1,8 @@
 repositories {
     jcenter()
+    flatDir{
+        dirs 'libs'
+    }
 }
 dependencies {
     compile(name: 'nexgo-smartpos-sdk-v3.02.001_20201028', ext: 'aar')
