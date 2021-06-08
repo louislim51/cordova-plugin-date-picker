@@ -22,6 +22,11 @@ public class datepickercordovaplugin extends CordovaPlugin {
 
             this.coolMethod(message, callbackContext);
             return true;
+        } else if (action.equals("printReceipt")) {
+            Log.d("myTag", "This is print receipt");
+
+            this.printReceipt(callbackContext);
+            return true;
         }
         return false;
     }
@@ -32,5 +37,9 @@ public class datepickercordovaplugin extends CordovaPlugin {
         } else {
             callbackContext.error("Expected one non-empty string argument.");
         }
+    }
+
+    private void printReceipt(CallbackContext callbackContext) {
+
     }
 }

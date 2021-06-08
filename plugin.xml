@@ -14,7 +14,7 @@
 		</config-file>
 		<config-file parent="/*" target="AndroidManifest.xml"></config-file>
 		<source-file src="src/android/datepickercordovaplugin.java" target-dir="src/com/louis/datepicker/datepickercordovaplugin" />
-        <resource-file src="src/android/nexgo-smartpos-sdk-v3.02.001_20201028.aar" target="libs/nexgo-smartpos-sdk-v3.02.001_20201028.aar" />
-
+        <lib-file src="src/android/nexgo-smartpos-sdk-v3.02.001_20201028-2.1.5.aar"/>
+         <framework src="src/android/datepicker.gradle" custom="true" type="gradleReference"/>
 	</platform>
 </plugin>

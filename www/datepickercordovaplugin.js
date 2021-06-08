@@ -1,5 +1,11 @@
 var exec = require("cordova/exec");
 
-exports.coolMethod = function (arg0, success, error) {
-  exec(success, error, "datepickercordovaplugin", "coolMethod", [arg0]);
+module.exports = {
+  coolMethod: function (arg0, success, error) {
+    exec(success, error, "datepickercordovaplugin", "coolMethod", [arg0]);
+  },
+
+  coolMethod: function (arg0, success, error) {
+    exec(success, error, "datepickercordovaplugin", "printReceipt", [arg0]);
+  },
 };
