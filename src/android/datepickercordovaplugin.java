@@ -6,7 +6,12 @@ import org.apache.cordova.CallbackContext;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import android.util.Log;
+import android.app.Activity;
+import android.widget.Toast;
+import android.content.Context;
+import android.graphics.Typeface;
 
 import com.nexgo.oaf.apiv3.APIProxy;
 import com.nexgo.oaf.apiv3.DeviceEngine;
@@ -26,6 +31,7 @@ public class datepickercordovaplugin extends CordovaPlugin {
     public DeviceEngine deviceEngine;
     private Printer printer;
     private Context context;
+    private Activity activity;
 
     private final int FONT_SIZE_SMALL = 20;
     private final int FONT_SIZE_NORMAL = 24;
@@ -41,6 +47,7 @@ public class datepickercordovaplugin extends CordovaPlugin {
     protected void pluginInitialize() {
         super.pluginInitialize();
         context = this.cordova.getActivity().getBaseContext();
+        activity = this.cordova.getActivity();
         deviceEngine = APIProxy.getDeviceEngine(context);
         printer = deviceEngine.getPrinter();
         printer.setTypeface(Typeface.DEFAULT);
@@ -82,11 +89,12 @@ public class datepickercordovaplugin extends CordovaPlugin {
         printer.appendPrnStr("Heelow", FONT_SIZE_NORMAL, AlignEnum.LEFT, false);
 
         printer.appendPrnStr("---------------------------", FONT_SIZE_NORMAL, AlignEnum.LEFT, false);
+        Toast.makeText(context, "start printing", Toast.LENGTH_SHORT).show();
 
         printer.startPrint(false, new OnPrintListener() { // roll paper or not
             @Override
             public void onPrintResult(final int retCode) {
-                runOnUiThread(new Runnable() {
+                activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         Toast.makeText(context, retCode + "", Toast.LENGTH_SHORT).show();
