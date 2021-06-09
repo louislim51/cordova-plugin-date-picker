@@ -8,6 +8,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import android.util.Log;
 
+import com.nexgo.oaf.apiv3.APIProxy;
+import com.nexgo.oaf.apiv3.DeviceEngine;
+import com.nexgo.oaf.apiv3.device.printer.AlignEnum;
+import com.nexgo.oaf.apiv3.device.printer.BarcodeFormatEnum;
+import com.nexgo.oaf.apiv3.device.printer.DotMatrixFontEnum;
+import com.nexgo.oaf.apiv3.device.printer.FontEntity;
+import com.nexgo.oaf.apiv3.device.printer.GrayLevelEnum;
+import com.nexgo.oaf.apiv3.device.printer.OnPrintListener;
+import com.nexgo.oaf.apiv3.device.printer.Printer;
+
 /**
  * This class echoes a string called from JavaScript.
  */
