@@ -13,6 +13,30 @@ import android.util.Log;
  */
 public class datepickercordovaplugin extends CordovaPlugin {
 
+    public DeviceEngine deviceEngine;
+    private Printer printer;
+    private Context context;
+
+    private final int FONT_SIZE_SMALL = 20;
+    private final int FONT_SIZE_NORMAL = 24;
+    private final int FONT_SIZE_BIG = 24;
+    private FontEntity fontSmall = new FontEntity(DotMatrixFontEnum.CH_SONG_20X20, DotMatrixFontEnum.ASC_SONG_8X16);
+    private FontEntity fontNormal = new FontEntity(DotMatrixFontEnum.CH_SONG_24X24, DotMatrixFontEnum.ASC_SONG_12X24);
+    private FontEntity fontBold = new FontEntity(DotMatrixFontEnum.CH_SONG_24X24,
+            DotMatrixFontEnum.ASC_SONG_BOLD_16X24);
+    private FontEntity fontBig = new FontEntity(DotMatrixFontEnum.CH_SONG_24X24, DotMatrixFontEnum.ASC_SONG_12X24,
+            false, true);
+
+    @Override
+    protected void pluginInitialize() {
+        super.pluginInitialize();
+        context = this.cordova.getActivity().getBaseContext();
+        deviceEngine = APIProxy.getDeviceEngine(context);
+        printer = deviceEngine.getPrinter();
+        printer.setTypeface(Typeface.DEFAULT);
+
+    }
+
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if (action.equals("coolMethod")) {
@@ -40,6 +64,25 @@ public class datepickercordovaplugin extends CordovaPlugin {
     }
 
     private void printReceipt(CallbackContext callbackContext) {
+        printer.initPrinter(); // init printer
+        printer.setTypeface(Typeface.DEFAULT); // change print type
+        printer.setLetterSpacing(5); // change the line space between each line
+        printer.setGray(GrayLevelEnum.LEVEL_2); // change print gray
 
+        printer.appendPrnStr("Heelow", FONT_SIZE_NORMAL, AlignEnum.LEFT, false);
+
+        printer.appendPrnStr("---------------------------", FONT_SIZE_NORMAL, AlignEnum.LEFT, false);
+
+        printer.startPrint(false, new OnPrintListener() { // roll paper or not
+            @Override
+            public void onPrintResult(final int retCode) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(context, retCode + "", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
     }
 }
