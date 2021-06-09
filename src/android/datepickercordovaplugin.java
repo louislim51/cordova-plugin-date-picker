@@ -66,7 +66,7 @@ public class datepickercordovaplugin extends CordovaPlugin {
         } else if (action.equals("printReceipt")) {
             Log.d("myTag", "This is print receipt");
 
-            this.printReceipt(callbackContext);
+            this.printReceipt(args.getJSONArray(0), callbackContext);
             return true;
         }
         return false;
@@ -80,16 +80,21 @@ public class datepickercordovaplugin extends CordovaPlugin {
         }
     }
 
-    private void printReceipt(CallbackContext callbackContext) {
+    private void printReceipt(JSONArray args, CallbackContext callbackContext) {
         printer.initPrinter(); // init printer
         printer.setTypeface(Typeface.DEFAULT); // change print type
         printer.setLetterSpacing(5); // change the line space between each line
         printer.setGray(GrayLevelEnum.LEVEL_2); // change print gray
 
-        printer.appendPrnStr("Heelow", FONT_SIZE_NORMAL, AlignEnum.LEFT, false);
+        try {
+            for (int i = 0; i < args.length(); i++) {
+                String valueString = args.getString(i);
+                printer.appendPrnStr(valueString, FONT_SIZE_NORMAL, AlignEnum.CENTER, false);
 
-        printer.appendPrnStr("---------------------------", FONT_SIZE_NORMAL, AlignEnum.LEFT, false);
-        Toast.makeText(context, "start printing", Toast.LENGTH_SHORT).show();
+            }
+        } catch (JSONException e) {
+            Log.i("CordovaLog", e.getLocalizedMessage());
+        }
 
         printer.startPrint(false, new OnPrintListener() { // roll paper or not
             @Override
